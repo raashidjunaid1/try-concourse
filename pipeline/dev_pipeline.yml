@@ -1,0 +1,23 @@
+resources:
+- name: gatsby-site
+  type: git
+  source:
+    uri: https://github.com/raashidjunaid1/try-concourse.git
+    branch: master
+
+jobs:
+- name: npm-install
+  plan:
+  - get: gatsby-site
+  - task: install
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: node
+          tag: alpine
+      run:
+        path: ls
+        args:
+        - gatsby-site
