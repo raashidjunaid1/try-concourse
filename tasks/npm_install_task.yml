@@ -7,6 +7,4 @@ image_resource:
     tag: alpine
 
 run:
-  path: npm
-  args:
-  - install 
+  path: npm_install.sh

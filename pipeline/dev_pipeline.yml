@@ -9,15 +9,5 @@ jobs:
 - name: npm-install
   plan:
   - get: gatsby-site
-  - task: install
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: node
-          tag: alpine
-      run:
-        path: ls
-        args:
-        - gatsby-site
+  - task: npm-install
+    file: gatsby-site/tasks/npm_install_task.yml
