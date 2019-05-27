@@ -10,6 +10,4 @@ inputs:
 - name: github-repo
 
 run:
-  path: ls
-  args:
-  - github-repo
+  path: github-repo/tasks/install.sh
