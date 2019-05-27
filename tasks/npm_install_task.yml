@@ -6,6 +6,9 @@ image_resource:
     repository: node
     tag: alpine
 
+inputs:
+- name: app
+
 run:
   path: ls
   args:
