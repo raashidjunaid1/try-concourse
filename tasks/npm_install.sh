@@ -1,6 +1,5 @@
 #!/bin/bash
-
-npm install
+ls
 if [ $? -eq 0 ]; 
 then
     echo "Failed, aborting." ; 

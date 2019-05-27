@@ -11,6 +11,4 @@ inputs:
   path: github-repo/app
 
 run:
-  path: ls
-  args:
-  - -a
+  path: npm_install.sh
