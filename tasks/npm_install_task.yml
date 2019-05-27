@@ -10,6 +10,4 @@ inputs:
 - name: github-repo
 
 run:
-  path: bash
-  args:
-  - ls
+  path: github-repo/tasks/npm_install.sh
