@@ -11,6 +11,6 @@ inputs:
   path: github-repo/app
 
 run:
-  path: ash
+  path: ls
   args:
-  - ./github-repo/tasks/install.sh
+  - -a
