@@ -10,4 +10,4 @@ jobs:
   plan:
   - get: app
   - task: npm-install
-    file: gatsby-site/tasks/npm_install_task.yml
+    file: app/tasks/npm_install_task.yml
