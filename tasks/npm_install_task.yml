@@ -7,8 +7,8 @@ image_resource:
     tag: alpine
 
 inputs:
-- name: app
-  path: app/app
+- name: github-repo
+  path: github-repo/app
 
 run:
   path: ls

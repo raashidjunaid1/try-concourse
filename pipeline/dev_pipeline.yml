@@ -1,5 +1,5 @@
 resources:
-- name: app
+- name: github-repo
   type: git
   source:
     uri: https://github.com/raashidjunaid1/try-concourse.git
@@ -8,6 +8,6 @@ resources:
 jobs:
 - name: npm-install
   plan:
-  - get: app
+  - get: github-repo
   - task: npm-install
-    file: app/tasks/npm_install_task.yml
+    file: github-repo/tasks/npm_install_task.yml
