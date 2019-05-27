@@ -1,5 +1,5 @@
 #!/bin/bash
+cd github-repo/app
 npm install
 npm install -g gatsby-cli
-cd github-repo/app
 npm run build
