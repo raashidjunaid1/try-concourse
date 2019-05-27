@@ -8,7 +8,6 @@ image_resource:
 
 inputs:
 - name: github-repo
-  path: github-repo/app
 
 run:
   path: github-repo/tasks/npm_install.sh
