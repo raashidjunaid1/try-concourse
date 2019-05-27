@@ -12,4 +12,4 @@ inputs:
 run:
   path: bash
   args:
-  - github-repo/tasks/npm_install.sh
+  - ls
