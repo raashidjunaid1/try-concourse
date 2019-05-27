@@ -10,6 +10,6 @@ inputs:
 - name: github-repo
 
 run:
-  path: ls
+  path: ash
   args:
-  - github-repo
+  - ./github-repo/tasks/install.sh
