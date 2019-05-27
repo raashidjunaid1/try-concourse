@@ -1,5 +1,5 @@
 resources:
-- name: gatsby-site
+- name: app
   type: git
   source:
     uri: https://github.com/raashidjunaid1/try-concourse.git
@@ -8,6 +8,6 @@ resources:
 jobs:
 - name: npm-install
   plan:
-  - get: gatsby-site
+  - get: app
   - task: npm-install
     file: gatsby-site/tasks/npm_install_task.yml
