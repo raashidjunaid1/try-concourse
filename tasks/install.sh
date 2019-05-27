@@ -1,3 +1,3 @@
 #!/bin/bash
-ls
-echo "hello world"
+cd github-repo/app
+npm install
