@@ -7,7 +7,7 @@ image_resource:
     tag: alpine
 
 inputs:
-- name: 
+- name: app
 
 run:
   path: ls
