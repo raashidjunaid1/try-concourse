@@ -8,6 +8,7 @@ image_resource:
 
 inputs:
 - name: app
+  path: app/app
 
 run:
   path: ls
