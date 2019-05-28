@@ -6,11 +6,11 @@ resources:
     branch: master
 
 jobs:
-- name: install
+- name: test
   plan:
   - get: github-repo
     trigger: true
-  - task: install-dependencies
+  - task: a
     config:
       platform: linux
       image_resource:
@@ -22,9 +22,6 @@ jobs:
       inputs:
       - name: github-repo
 
-      caches:
-      - path: github-repo/app/node_modules
-
       run:
         path: sh
         args:
@@ -32,13 +29,14 @@ jobs:
         - |
             cd github-repo/app
             npm install
+            npm test
 
 - name: build
   plan:
   - get: github-repo
-    passed: [install]
+    passed: [test]
     trigger: true
-  - task: do-build
+  - task: a
     config:
       platform: linux
       image_resource:
@@ -50,8 +48,8 @@ jobs:
       inputs:
       - name: github-repo
 
-      caches:
-      - path: github-repo/app/node_modules
+      outputs:
+      - name: public
 
       run:
         path: sh
@@ -59,4 +57,6 @@ jobs:
         - -exec
         - |
             cd github-repo/app
-            npm test
+            npm install
+            npm run build
+            cp public public 
