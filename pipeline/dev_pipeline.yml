@@ -5,6 +5,14 @@ resources:
     uri: https://github.com/raashidjunaid1/try-concourse.git
     branch: master
 
+# - name: site-image
+#   type: docker-image
+#   source:
+#     email: raashidjunaid1@gmail.com 
+#     username: raashidjunaid1
+#     password: 2Udontwannaknow
+#     repository: raashidjunaid1/site-image
+
 jobs:
 - name: npm-install
   plan:
@@ -15,5 +23,7 @@ jobs:
 - name: npm-test
   plan:
   - get: github-repo
+    passed:
+    - npm-install
   - task: npm-test
     file: github-repo/tasks/npm_test_task.yml

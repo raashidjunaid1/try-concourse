@@ -1,0 +1,62 @@
+resources:
+- name: github-repo
+  type: git
+  source:
+    uri: https://github.com/raashidjunaid1/try-concourse.git
+    branch: master
+
+jobs:
+- name: install
+  plan:
+  - get: github-repo
+    trigger: true
+  - task: install-dependencies
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: node
+          tag: alpine
+        
+      inputs:
+      - name: github-repo
+
+      caches:
+      - path: github-repo/app/node_modules
+
+      run:
+        path: sh
+        args:
+        - -exec
+        - |
+            cd github-repo/app
+            npm install
+
+- name: build
+  plan:
+  - get: github-repo
+    passed: [install]
+    trigger: true
+  - task: do-build
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: node
+          tag: alpine
+    
+      inputs:
+      - name: github-repo
+
+      caches:
+      - path: github-repo/app/node_modules
+
+      run:
+        path: sh
+        args:
+        - -exec
+        - |
+            cd github-repo/app
+            npm test
