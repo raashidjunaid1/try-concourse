@@ -11,3 +11,9 @@ jobs:
   - get: github-repo
   - task: npm-install
     file: github-repo/tasks/npm_install_task.yml
+
+- name: npm-test
+  plan:
+  - get: github-repo
+  - task: npm-test
+    file: github-repo/tasks/npm_test_task.yml
