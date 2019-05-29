@@ -83,6 +83,9 @@ jobs:
       params:
         AUTH_KEY : ((json-key))
 
+      caches:
+      - path: github-repo/app/node_modules
+
       inputs:
       - name: github-repo
       # - name: public
@@ -100,4 +103,4 @@ jobs:
             base64 -d encrypted_key.txt > myfile.json
             gcloud auth activate-service-account --key-file myfile.json
             gcloud config set project kubes-241612
-            gcloud app deploy
+            gcloud app deploy -q
