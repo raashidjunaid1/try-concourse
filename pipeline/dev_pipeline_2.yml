@@ -6,57 +6,98 @@ resources:
     branch: master
 
 jobs:
-- name: test
-  plan:
-  - get: github-repo
-    trigger: true
-  - task: a
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: node
-          tag: alpine
+# - name: test
+#   plan:
+#   - get: github-repo
+#     trigger: true
+#   - task: unit test
+#     config:
+#       platform: linux
+#       image_resource:
+#         type: docker-image
+#         source:
+#           repository: node
+#           tag: alpine
         
-      inputs:
-      - name: github-repo
+#       inputs:
+#       - name: github-repo
 
-      run:
-        path: sh
-        args:
-        - -exec
-        - |
-            cd github-repo/app
-            npm install
-            npm test
+#       caches:
+#       - path: github-repo/app/node_modules
 
-- name: build
+#       run:
+#         path: sh
+#         args:
+#         - -exec
+#         - |
+#             cd github-repo/app
+#             npm install
+#             npm run test
+
+# - name: build
+#   plan:
+#   - get: github-repo
+#   - task: build
+#     config:
+#       platform: linux
+#       image_resource:
+#         type: docker-image
+#         source:
+#           repository: node
+#           tag: alpine
+    
+#       inputs:
+#       - name: github-repo
+
+#       outputs:
+#       - name: public
+
+#       caches:
+#       - path: github-repo/app/node_modules
+
+#       run:
+#         path: sh
+#         args:
+#         - -exec
+#         - |
+#             cd github-repo/app
+#             npm install
+#             npm run build
+#             find public
+
+
+- name: deploy
   plan:
   - get: github-repo
-    passed: [test]
+    # passed: [build]
     trigger: true
-  - task: a
+  - task: deploy
     config:
       platform: linux
       image_resource:
         type: docker-image
         source:
-          repository: node
+          repository: google/cloud-sdk
           tag: alpine
-    
+
+      params:
+        AUTH_KEY : ((json-key))
+
       inputs:
       - name: github-repo
-
-      outputs:
-      - name: public
-
+      # - name: public
       run:
         path: sh
         args:
         - -exec
         - |
+            # find public
+            apk add --update nodejs nodejs-npm
             cd github-repo/app
             npm install
             npm run build
-            cp public public 
+            echo $AUTH_KEY > encrypted_key.txt
+            base64 -d encrypted_key.txt > myfile.json
+            gcloud auth activate-service-account --key-file myfile.json
+            gcloud config set project kubes-241612
+            gcloud app deploy
